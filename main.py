@@ -46,6 +46,20 @@ def build_graph() -> nx.Graph:
     return graph
 
 
+def primary_route(graph: nx.Graph, source, target, weight=None):
+    """Return the primary route (shortest path) between two end nodes.
+
+    Returns a tuple ``(path, length)`` where ``path`` is the list of nodes
+    from ``source`` to ``target`` and ``length`` is the number of hops
+    (or the summed edge weight when ``weight`` is given).
+
+    Raises ``networkx.NetworkXNoPath`` if the nodes are disconnected.
+    """
+    path = nx.shortest_path(graph, source, target, weight=weight)
+    length = nx.shortest_path_length(graph, source, target, weight=weight)
+    return path, length
+
+
 def draw_graph(graph: nx.Graph, filename: str = "topology.png") -> None:
     """Render the graph to a PNG using the picture's layout."""
     import matplotlib.pyplot as plt
@@ -71,6 +85,10 @@ if __name__ == "__main__":
     print(f"Connected: {nx.is_connected(G)}")
     print(f"Diameter: {nx.diameter(G)}")
     print(f"Radius: {nx.radius(G)}")
+
+    src, dst = 1, 17
+    route, hops = primary_route(G, src, dst)
+    print(f"Primary route {src} -> {dst}: {route} ({hops} hops)")
     G_copy = nx.Graph(G)  # Make a copy to avoid modifying the original graph.
     draw_graph(G_copy, filename="topology_copy.png")
     draw_graph(G, filename="topology_original.png")
