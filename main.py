@@ -69,4 +69,6 @@ if __name__ == "__main__":
     print(f"Nodes: {G.number_of_nodes()}")
     print(f"Edges: {G.number_of_edges()}")
     print(f"Connected: {nx.is_connected(G)}")
+    print(f"Diameter: {nx.diameter(G)}")
+    print(f"Radius: {nx.radius(G)}")
     draw_graph(G)
