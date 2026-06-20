@@ -71,4 +71,6 @@ if __name__ == "__main__":
     print(f"Connected: {nx.is_connected(G)}")
     print(f"Diameter: {nx.diameter(G)}")
     print(f"Radius: {nx.radius(G)}")
-    draw_graph(G)
+    G_copy = nx.Graph(G)  # Make a copy to avoid modifying the original graph.
+    draw_graph(G_copy, filename="topology_copy.png")
+    draw_graph(G, filename="topology_original.png")
